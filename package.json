@@ -1,0 +1,50 @@
+{
+  "name": "showcase",
+  "version": "3.0.0",
+  "description": "Official interactive online portfolio with Three.js",
+  "main": "index.js",
+  "scripts": {
+    "start": "webpack-dev-server --c webpack.config.js --mode development --open",
+    "build": "webpack --c webpack.config.js --mode production",
+    "lint": "eslint --ext .js ./",
+    "lint:fix": "eslint --ext .js ./ --fix",
+    "stylelint": "stylelint \"**/*.scss\"",
+    "stylelint:fix": "stylelint \"**/*.scss\" --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/cybulskimateusz/cybulskimateusz.com.git"
+  },
+  "author": "cybulskimateusz.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/cybulskimateusz/cybulskimateusz.com/issues"
+  },
+  "homepage": "https://github.com/cybulskimateusz/cybulskimateusz.com#readme",
+  "dependencies": {
+    "pug": "^3.0.0"
+  },
+  "peerDependencies": {
+    "pug": "^3.0.0"
+  },
+  "devDependencies": {
+    "babel-loader": "^8.1.0",
+    "css-loader": "^4.2.0",
+    "eslint": "^7.6.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "file-loader": "^6.0.0",
+    "html-webpack-plugin": "^4.3.0",
+    "pug-loader": "^2.4.0",
+    "sass": "^1.26.10",
+    "sass-loader": "^9.0.3",
+    "style-loader": "^1.2.1",
+    "stylelint": "^13.6.1",
+    "webpack": "^4.44.1",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  }
+}

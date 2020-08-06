@@ -1,0 +1,25 @@
+{
+    "env": {
+        "browser": true,
+        "es2020": true
+    },
+    "extends": [
+        "standard"
+    ],
+    "parserOptions": {
+        "ecmaVersion": 11,
+        "sourceType": "module"
+    },
+    "rules": {
+    },
+    "settings": {
+      "import/resolver": {
+        "node": {
+          "paths": [
+            "./src",
+            "./environments.js"
+          ]
+        }
+      }
+    }
+}

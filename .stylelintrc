@@ -1,0 +1,14 @@
+{
+    "plugins": [
+      "stylelint-order",
+      "stylelint-scss"
+    ],
+    "rules": {
+      "order/order": [
+        "custom-properties",
+        "declarations"
+      ],
+      "order/properties-alphabetical-order": true,
+      "declaration-block-no-redundant-longhand-properties": true
+    }
+}
