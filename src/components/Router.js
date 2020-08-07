@@ -32,14 +32,14 @@ export default class Router {
     }
   }
 
-  _handlePathnameUpdate (pathname) {
-    this.routes[this.pathname].hide()
-    this._showRoute(pathname)
+  async _handlePathnameUpdate (pathname) {
+    await this.routes[this.pathname].hide()
+    await this._showRoute(pathname)
   }
 
-  _showRoute (pathname) {
+  async _showRoute (pathname) {
     try {
-      this.routes[pathname].show()
+      await this.routes[pathname].show()
     } catch { location.pathname = '/404' }
   }
 }
