@@ -17,13 +17,13 @@ export default class Router {
    *
    */
   constructor (routes) {
-    AutoBind(this)
-
     this._validateRoutes(routes)
 
     this.pathname = window.location.pathname
     this.routes = routes
     this._callRoute(this.pathname)
+
+    AutoBind(this)
   }
 
   listen () {
@@ -38,10 +38,10 @@ export default class Router {
       throw new Error('Routes object must contain keys "/" and "/404"')
     }
     if (!_.values(routes).every(({ component }) => component instanceof Page)) {
-      throw new Error('Each route value must contain object extending Element or Page')
+      throw new Error('Each route value must contain object extending Page')
     }
     if (!_.values(routes).every(el => !el.sideEffect || typeof (el.sideEffect) === 'function')) {
-      throw new Error('Each route value must contain object extending Element or Page')
+      throw new Error('SideEffects must be functions')
     }
   }
 
