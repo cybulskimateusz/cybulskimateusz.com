@@ -1,4 +1,6 @@
 import AutoBind from 'auto-bind'
+import _ from 'lodash'
+import Page from 'abstracts/Page'
 
 export default class Router {
   /*
@@ -6,7 +8,7 @@ export default class Router {
    * routes must be an object with routes and components
    * {
    *  '/': {
-   *    component extends Page !required,
+   *    component extends or Page !required,
    *    sideEffect
    *  } !required,
    *  '/404': {component} !required
@@ -17,9 +19,10 @@ export default class Router {
   constructor (routes) {
     AutoBind(this)
 
+    this._validateRoutes(routes)
+
     this.pathname = window.location.pathname
     this.routes = routes
-
     this._callRoute(this.pathname)
   }
 
@@ -27,9 +30,24 @@ export default class Router {
     setInterval(this._checkPathname, 50)
   }
 
+  _validateRoutes (routes) {
+    if (!routes || !_.isPlainObject(routes)) {
+      throw new Error('Constructor argument must be type of object')
+    }
+    if (!_.keys(routes).includes('/') || !_.keys(routes).includes('/404')) {
+      throw new Error('Routes object must contain keys "/" and "/404"')
+    }
+    if (!_.values(routes).every(({ component }) => component instanceof Page)) {
+      throw new Error('Each route value must contain object extending Element or Page')
+    }
+    if (!_.values(routes).every(el => !el.sideEffect || typeof (el.sideEffect) === 'function')) {
+      throw new Error('Each route value must contain object extending Element or Page')
+    }
+  }
+
   _checkPathname () {
     const pathname = window.location.pathname
-    if (pathname !== this.pathname) {
+    if (this.routes && pathname !== this.pathname) {
       this._handlePathnameUpdate(pathname)
       this.pathname = pathname
     }
