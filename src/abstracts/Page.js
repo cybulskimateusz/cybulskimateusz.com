@@ -14,23 +14,21 @@ export default class Page extends Element {
   show (timelinemax) {
     super.show(timelinemax)
     if (this.children.length > 0) this.children.map(child => child.show())
-    this.addEventListeners()
   }
 
   hide (timelinemax) {
     super.hide(timelinemax)
     if (this.children.length > 0) this.children.map(child => child.hide())
-    this.removeEventListeners()
   }
 
-  setChildren (children) {
+  _setChildren (children) {
     this.children = children
   }
 
-  setup () {
+  _setup () {
     document.title = this.title
   }
 
-  addEventListeners () { }
-  removeEventListeners () { }
+  _addEventListeners () { }
+  _removeEventListeners () { }
 }

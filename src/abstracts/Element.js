@@ -10,10 +10,10 @@ export default class Element {
   }
 
   async show (timeline = new TimelineMax()) {
-    this.setup()
+    this._setup()
 
     this.target.appendChild(this.element)
-    this.addEventListeners()
+    this._addEventListeners()
 
     await new Promise(resolve =>
       timeline.call(() => resolve())
@@ -26,11 +26,11 @@ export default class Element {
     )
 
     this.target.removeChild(this.element)
-    this.removeEventListeners()
+    this._removeEventListeners()
   }
 
-  setup () { }
+  _setup () { }
 
-  addEventListeners () { }
-  removeEventListeners () { }
+  _addEventListeners () { }
+  _removeEventListeners () { }
 }
