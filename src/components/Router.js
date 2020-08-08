@@ -5,9 +5,12 @@ export default class Router {
    *
    * routes must be an object with routes and components
    * {
-   *  '/': component !required,
-   *  '/404': component !required
-   *  '/another-url': component
+   *  '/': {
+   *    component extends Page !required,
+   *    sideEffect
+   *  } !required,
+   *  '/404': {component} !required
+   *  '/another-url': {component}
    * }
    *
    */
@@ -17,7 +20,7 @@ export default class Router {
     this.pathname = window.location.pathname
     this.routes = routes
 
-    this._showRoute(this.pathname)
+    this._callRoute(this.pathname)
   }
 
   listen () {
@@ -33,13 +36,14 @@ export default class Router {
   }
 
   async _handlePathnameUpdate (pathname) {
-    await this.routes[this.pathname].hide()
-    await this._showRoute(pathname)
+    await this.routes[this.pathname].component.hide()
+    await this._callRoute(pathname)
   }
 
-  async _showRoute (pathname) {
+  async _callRoute (pathname) {
     try {
-      await this.routes[pathname].show()
+      await this.routes[pathname].component.show()
+      if (typeof (this.routes[pathname].sideEffect) === 'function') this.routes[pathname].sideEffect()
     } catch { location.pathname = '/404' }
   }
 }
