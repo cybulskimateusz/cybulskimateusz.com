@@ -55,7 +55,6 @@ export default class LogoSpinner extends Element {
     const { x, y } = percent
     if (x <= 100 && x >= 0 && y <= 100 && y >= 0) {
       this.element.querySelector('.logo_spinner__inner').style.transform = `translate(${x - 50}%, ${y - 50}%)`
-      console.log(x, y)
     } else {
       this.element.querySelector('.logo_spinner__inner').style.transform = 'translate(0, 0)'
     }

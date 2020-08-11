@@ -4,6 +4,11 @@
   width: 150px;
   z-index: 2;
 
+  &__inner {
+    width: 110px;
+    height: 110px;
+  }
+
   &--corner {
     right: -3%;
     top: -7%;
@@ -18,7 +23,7 @@
     animation: circle-rotation 10s linear infinite;
     color: rgba(255,255,255,1);
     font-size: 0.7em;
-    font-weight: 300;
+    font-weight: 400;
     height: 110px;
     margin: 12.5% auto;
     position: relative;
