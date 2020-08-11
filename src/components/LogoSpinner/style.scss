@@ -1,0 +1,62 @@
+.logo_spinner {
+  position: absolute;
+  z-index: 2;
+
+  &--corner {
+    bottom: 86%;
+    right: 3%;
+  }
+
+  &--bottom {
+    bottom: 10%;
+    left: 40%;
+  }
+
+  &__tagline {
+    animation: circle-rotation 10s linear infinite;
+    color: rgba(255,255,255,1);
+    font-size: 0.7em;
+    font-weight: 300;
+    height: 110px;
+    margin-left: 50%;
+    position: relative;
+    text-transform: uppercase;
+    width: 110px;
+
+    &__inner {
+      height: 110px;
+      left: calc(50% - 8px);
+      position: absolute;
+      text-align: center;
+      width: 16px;
+      
+      @for $i from 1 through 32 {
+        &:nth-child(#{$i}) {
+            --pos: #{$i};
+          transform: rotate(calc(#{$i}*10.5deg));
+        }
+      }
+
+    }
+
+  }
+  
+}
+
+@keyframes circle-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes circle-rotation {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
