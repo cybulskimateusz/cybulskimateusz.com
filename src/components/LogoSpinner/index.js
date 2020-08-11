@@ -1,5 +1,6 @@
 import { TimelineMax } from 'gsap'
 import _ from 'lodash'
+import Dom from 'utils/Dom'
 import Element from 'abstracts/Element'
 import tagline from './index.pug'
 import './style.scss'
@@ -33,7 +34,9 @@ export default class LogoSpinner extends Element {
 
   hide () {
     const tl = new TimelineMax()
-    this.inners.forEach(inner => tl.to(inner, 0.01, { opacity: 0 }))
+    _.forEachRight(this.inners, inner => {
+      tl.to(inner, 0.01, { opacity: 0 })
+    })
     return super.hide(tl)
   }
 
@@ -45,5 +48,24 @@ export default class LogoSpinner extends Element {
   toCorner () {
     this.element.classList.remove('logo_spinner--bottom')
     this.element.classList.add('logo_spinner--corner')
+  }
+
+  _mouseMove (e) {
+    const { percent } = Dom.getPointerPosition(this.element, e)
+    const { x, y } = percent
+    if (x <= 100 && x >= 0 && y <= 100 && y >= 0) {
+      this.element.querySelector('.logo_spinner__inner').style.transform = `translate(${x - 50}%, ${y - 50}%)`
+      console.log(x, y)
+    } else {
+      this.element.querySelector('.logo_spinner__inner').style.transform = 'translate(0, 0)'
+    }
+  }
+
+  _addEventListeners () {
+    this.element.addEventListener('mousemove', this._mouseMove)
+  }
+
+  _removeEventListeners () {
+    this.element.removeEventListener('mousemove', this._mouseMove)
   }
 }

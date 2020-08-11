@@ -1,15 +1,17 @@
 .logo_spinner {
+  height: 150px;
   position: absolute;
+  width: 150px;
   z-index: 2;
 
   &--corner {
-    bottom: 86%;
-    right: 3%;
+    right: -3%;
+    top: -7%;
   }
 
   &--bottom {
-    bottom: 10%;
-    left: 40%;
+    bottom: 7%;
+    left: 45%;
   }
 
   &__tagline {
@@ -18,7 +20,7 @@
     font-size: 0.7em;
     font-weight: 300;
     height: 110px;
-    margin-left: 50%;
+    margin: 12.5% auto;
     position: relative;
     text-transform: uppercase;
     width: 110px;
