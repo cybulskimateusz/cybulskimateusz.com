@@ -22,7 +22,8 @@ export default class Link extends Element {
 
   _setup () {
     this.element.classList.add('link')
-    this.element.innerHTML = pug({ name: this.name })
+    if (typeof (this.name) === 'string') this.element.innerHTML = pug({ name: this.name })
+    else if (typeof (this.name) === 'function') this.element.innerHTML = this.name()
   }
 
   _addEventListeners () {

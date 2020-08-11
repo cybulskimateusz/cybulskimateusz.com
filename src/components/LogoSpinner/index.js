@@ -1,6 +1,7 @@
 import { TimelineMax } from 'gsap'
 import _ from 'lodash'
 import Dom from 'utils/Dom'
+import magnetEffect from 'utils/MagnetEffect'
 import Element from 'abstracts/Element'
 import tagline from './index.pug'
 import './style.scss'
@@ -53,11 +54,8 @@ export default class LogoSpinner extends Element {
   _mouseMove (e) {
     const { percent } = Dom.getPointerPosition(this.element, e)
     const { x, y } = percent
-    if (x <= 100 && x >= 0 && y <= 100 && y >= 0) {
-      this.element.querySelector('.logo_spinner__inner').style.transform = `translate(${x - 50}%, ${y - 50}%)`
-    } else {
-      this.element.querySelector('.logo_spinner__inner').style.transform = 'translate(0, 0)'
-    }
+    const element = this.element.querySelector('.logo_spinner__inner')
+    magnetEffect(element, x, y)
   }
 
   _addEventListeners () {
