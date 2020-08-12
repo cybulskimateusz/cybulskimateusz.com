@@ -1,0 +1,22 @@
+.about {
+  position: absolute;
+  color: white;
+  width: 90vw;
+  height: 80vh;
+  margin: 0 5% 10%;
+  background: rgba(0,0,0,0.5);
+  padding: 2rem;
+  box-sizing: border-box;
+  text-align: center;
+  overflow: auto;
+  font-weight: 300;
+  opacity: 0;
+
+  h1 {
+    font-weight: 400;
+  }
+
+  ul {
+    text-align: left;
+  }
+}

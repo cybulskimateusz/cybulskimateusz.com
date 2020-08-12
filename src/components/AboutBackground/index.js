@@ -2,11 +2,27 @@ import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
 import Element from 'abstracts/Element'
 import laptop from 'assets/laptop.gltf'
+import { TimelineMax } from 'gsap/gsap-core'
 import './style.scss'
 
 export default class AboutBackground extends Element {
   constructor () {
     super('canvas', document.querySelector('#app'))
+  }
+
+  show () {
+    const tl = new TimelineMax()
+    tl
+      .from(this.element, { scaleX: 0 })
+      .to(this.element, 5, { scaleX: 1 })
+    super.show(tl)
+  }
+
+  hide () {
+    const tl = new TimelineMax()
+    tl
+      .to(this.element, { scaleX: 0 })
+    super.hide(tl)
   }
 
   _setup () {

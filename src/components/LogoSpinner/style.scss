@@ -2,7 +2,7 @@
   height: 150px;
   position: absolute;
   width: 150px;
-  z-index: 2;
+  z-index: 5;
 
   &__inner {
     height: 110px;
@@ -10,7 +10,7 @@
   }
 
   &--corner {
-    right: -3%;
+    right: -6%;
     top: -7%;
   }
 
