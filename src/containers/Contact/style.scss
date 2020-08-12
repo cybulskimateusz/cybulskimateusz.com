@@ -1,0 +1,38 @@
+.contact {
+  align-items: center;
+  height: 100vh;
+  margin: auto;
+  position: absolute;
+  width: 100vw;
+
+  &_item {
+    display: block;
+    font-size: 1.5rem;
+    margin: auto;
+    padding: 2rem;
+    width: fit-content;
+
+    &:hover a, &:hover i{
+      color: rgb(87, 87, 87);
+    }
+
+    a {
+      color: rgba(255,255, 255, 1);
+      font-weight: 300;
+      margin-left: 1rem;
+      text-decoration: none;
+    }
+
+    &:first-child {
+      padding-top: 4rem;
+    }
+  }
+
+  .icon {
+    color: rgba(255,255,255,1);
+
+    &_phone {
+      transform: rotate(95deg)
+    }
+  }
+}

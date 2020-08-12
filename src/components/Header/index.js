@@ -16,7 +16,7 @@ export default class Header extends Element {
 
   toLeft () {
     new TimelineMax()
-      .to(this.element, { x: -(window.innerWidth / 2) + this.element.offsetWidth })
+      .to(this.element, { marginLeft: '1.5rem' })
   }
 
   toCenter () {
