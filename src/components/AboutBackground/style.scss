@@ -1,0 +1,9 @@
+.about_background_canvas {
+  display: flex;
+  margin: 2.5% 5%;
+  position: absolute;
+
+  &:focus {
+    outline: none;
+  }
+}
