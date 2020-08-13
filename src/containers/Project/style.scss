@@ -1,70 +1,70 @@
 .project {
-  position: absolute;
   color: rgba(255,255,255,1);
+  position: absolute;
 
   &_header, &_image, &_stack, &_linkbar {
     position: absolute;
   }
 
   &_image {
-    width: 50vw;
     margin: 20vh 25vw;
     opacity: .7;
+    width: 50vw;
   }
 
   &_header {
-    margin-top:10vh;
-    width: 100vw;
     align-items: center;
-    text-align: center;
     font-weight: 300;
+    margin-top:10vh;
+    text-align: center;
+    width: 100vw;
   }
 
   &_stack {
-    width: 40vw;
-    padding: 0 30vw;
-    font-size: 1.5rem;
-    margin-top: 30vh;
     display: flex;
-    z-index: 10;
-    text-align: center;
+    font-size: 1.5rem;
     font-weight: 300;
+    margin-top: 30vh;
+    padding: 0 30vw;
+    text-align: center;
+    width: 40vw;
+    z-index: 10;
   }
 
   &_linkbar {
-    width: 40vw;
-    padding: 0 30vw;
-    font-size: 1.5rem;
-    margin-top: 70vh;
-    display: flex;
-    z-index: 10;
-    text-align: center;
-    display: inline-flex;
     align-content: space-between;
+    display: flex;
+    display: inline-flex;
+    font-size: 1.5rem;
     font-weight: 500;
+    margin-top: 70vh;
+    padding: 0 30vw;
+    text-align: center;
+    width: 40vw;
+    z-index: 10;
 
     a, a:visited {
-      text-decoration: none;
       color: rgba(255, 255, 255, 1);
       margin: auto;
+      text-decoration: none;
     }
   }
 
   @media (max-width:425px) {
     &_image {
-      width: 90vw;
       margin: 20vh 5vw;
+      width: 90vw;
     }
 
     &_stack {
-      width: 80vw;
-      padding: 0 10vw;
       font-size: 1.1rem;
+      padding: 0 10vw;
+      width: 80vw;
     }
 
     &_linkbar {
-      width: 90vw;
       padding: 0 5vw;
+      width: 90vw;
     }
   }
 }

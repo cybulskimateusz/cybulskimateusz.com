@@ -39,7 +39,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.(gltf|glsl|frag|vert|bin)?$/,
+        test: /\.(gltf|glsl|frag|vert|bin|png|ico)?$/,
         loader: 'file-loader'
       }
     ]

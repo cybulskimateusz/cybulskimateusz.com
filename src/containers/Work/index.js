@@ -106,6 +106,11 @@ export default class Work extends Page {
     else if (deltaY < 0) this._scrollLeft()
   }
 
+  _onDomMouseScroll (e) {
+    if (e.originalEvent.detail > 0) this._scrollRight()
+    else if (e.originalEvent.detail < 0) this._scrollLeft()
+  }
+
   _onTouchStart (e) {
     this.touchDimensions = Dom.getPointerPosition(document.body, e).px
   }
@@ -119,14 +124,16 @@ export default class Work extends Page {
 
   _addEventListeners () {
     window.addEventListener('resize', this._setWidth)
-    window.addEventListener('mousewheel', this._onWheel)
+    window.addEventListener('wheel', this._onWheel)
+    window.addEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.addEventListener('touchstart', this._onTouchStart)
     window.addEventListener('touchend', this._onTouchEnd)
   }
 
   _removeEventListeners () {
     window.removeEventListener('resize', this._setWidth)
-    window.removeEventListener('mousewheel', this._onWheel)
+    window.removeEventListener('wheel', this._onWheel)
+    window.removeEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.removeEventListener('touchstart', this._onTouchStart)
     window.removeEventListener('touchend', this._onTouchEnd)
   }

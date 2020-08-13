@@ -11,6 +11,7 @@
     margin: auto;
     padding: 2rem;
     width: fit-content;
+    width: -moz-fit-content;
 
     &:hover a, &:hover i{
       color: rgb(87, 87, 87);
