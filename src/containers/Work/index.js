@@ -61,7 +61,6 @@ export default class Work extends Page {
     tl.to(this.element, 0.1, { opacity: 1 })
     tl.to(this.element, 0.1, { opacity: 0 })
     await super.hide(tl)
-    this.element.innerHTML = ''
   }
 
   async _setWidth () {

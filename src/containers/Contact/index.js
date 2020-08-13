@@ -91,6 +91,5 @@ export default class Contact extends Page {
       tl.to(el, 0.1, { opacity: 0, y: 50 })
     })
     await super.hide(tl)
-    this.element.innerHTML = ''
   }
 }

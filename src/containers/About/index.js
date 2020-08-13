@@ -54,6 +54,5 @@ export default class About extends Page {
     const tl = new TimelineMax()
     tl.to(this.element, { opacity: 0 })
     super.hide(tl)
-    this.element.innerHTML = ''
   }
 }
