@@ -1,5 +1,6 @@
 import { TimelineMax } from 'gsap'
 import Element from 'abstracts/Element'
+import header from './index.pug'
 import './style.scss'
 
 export default class Header extends Element {
@@ -8,7 +9,7 @@ export default class Header extends Element {
   }
 
   _setup () {
-    this.element.innerHTML = 'Cybulski'
+    this.element.innerHTML = header()
     this.element.classList.add('header')
     this.element.tabIndex = 1
   }
