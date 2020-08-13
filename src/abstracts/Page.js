@@ -14,6 +14,11 @@ export default class Page extends Element {
     document.title = this.title
   }
 
+  async hide (timeline) {
+    await super.hide(timeline)
+    this.element.innerHTML = ''
+  }
+
   _addEventListeners () { }
   _removeEventListeners () { }
 }
