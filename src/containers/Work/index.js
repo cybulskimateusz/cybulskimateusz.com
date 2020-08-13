@@ -76,14 +76,14 @@ export default class Work extends Page {
 
   _scrollLeft () {
     if (this.scrollPosition < 0) {
-      this.scrollPosition += 30
+      this.scrollPosition += 50
       this.element.style.transform = `translateX(${this.scrollPosition}px)`
     }
   }
 
   _scrollRight () {
     if (this.scrollPosition > -(this.maxScrollX)) {
-      this.scrollPosition -= 30
+      this.scrollPosition -= 50
       this.element.style.transform = `translateX(${this.scrollPosition}px)`
     }
   }
