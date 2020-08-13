@@ -1,16 +1,16 @@
 .about {
-  position: absolute;
+  background: rgba(0,0,0,0.5);
+  box-sizing: border-box;
   color: white;
-  width: 90vw;
+  font-weight: 300;
   height: 80vh;
   margin: 0 5% 10%;
-  background: rgba(0,0,0,0.5);
-  padding: 2rem;
-  box-sizing: border-box;
-  text-align: center;
-  overflow: auto;
-  font-weight: 300;
   opacity: 0;
+  overflow: auto;
+  padding: 2rem;
+  position: absolute;
+  text-align: center;
+  width: 90vw;
 
   h1 {
     font-weight: 400;

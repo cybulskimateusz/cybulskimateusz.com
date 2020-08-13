@@ -90,7 +90,7 @@ export default class Contact extends Page {
     this.contactSelectors.forEach(el => {
       tl.to(el, 0.1, { opacity: 0, y: 50 })
     })
-    super.hide(tl)
+    await super.hide(tl)
     this.element.innerHTML = ''
   }
 }
