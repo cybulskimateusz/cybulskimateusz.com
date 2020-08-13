@@ -1,10 +1,10 @@
 import * as THREE from 'three'
-import Element from 'abstracts/Element'
+import Canvas from 'abstracts/Canvas'
 import './style.scss'
 
-export default class Background extends Element {
+export default class Background extends Canvas {
   constructor ({ amountX, amountY, spaceBetween, tempo, amplitude, clearColor, hoverColor }) {
-    super('canvas', document.querySelector('#app'))
+    super()
 
     this.amountX = amountX
     this.amountY = amountY
@@ -19,9 +19,7 @@ export default class Background extends Element {
   _setup () {
     this.element.classList.add('background_canvas')
 
-    this._createScene()
-    this._createCamera()
-    this._createRenderer()
+    super._setup()
     this._createBallsMap()
     this._crearteRaycaster()
 
@@ -30,20 +28,10 @@ export default class Background extends Element {
     this._animate()
   }
 
-  _createScene () {
-    this.scene = new THREE.Scene()
-  }
-
   _createCamera () {
-    this.camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 10000)
+    super._createCamera()
     this.camera.position.set(0, 0, 750)
     this.camera.rotation.x = THREE.MathUtils.degToRad(25)
-  }
-
-  _createRenderer () {
-    this.renderer = new THREE.WebGL1Renderer({ antialias: true, canvas: this.element })
-    this.renderer.setPixelRatio(window.devicePixelRatio)
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
   }
 
   _createBallsMap () {
@@ -66,20 +54,15 @@ export default class Background extends Element {
     this.scene.add(ballsMap)
   }
 
-  _onResize () {
-    this.camera.aspect = window.innerWidth / window.innerHeight
-    this.camera.updateProjectionMatrix()
-    this.renderer.setSize(window.innerWidth, window.innerHeight)
-  }
-
-  _animate () {
-    requestAnimationFrame(this._animate)
-    this._render()
+  _updateDimensions () {
+    super._updateDimensions()
+    this.width = window.innerWidth
+    this.height = window.innerHeight
   }
 
   _render () {
     this._moveWave()
-    this.renderer.render(this.scene, this.camera)
+    super._render()
   }
 
   _moveWave () {
@@ -120,12 +103,12 @@ export default class Background extends Element {
   }
 
   _addEventListeners () {
-    window.addEventListener('resize', this._onResize, false)
+    super._addEventListeners()
     window.addEventListener('mousemove', this._onDocumentMouseMove)
   }
 
   _removeEventListeners () {
-    window.removeEventListener('resize', this._onResize, false)
+    super._removeEventListeners()
     window.removeEventListener('mousemove', this._onDocumentMouseMove)
   }
 }
