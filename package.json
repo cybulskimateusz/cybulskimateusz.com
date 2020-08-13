@@ -25,7 +25,8 @@
     "auto-bind": "^4.0.0",
     "gsap": "^3.4.2",
     "lodash": "^4.17.19",
-    "pug": "^3.0.0"
+    "pug": "^3.0.0",
+    "three": "^0.119.1"
   },
   "peerDependencies": {
     "pug": "^3.0.0"
@@ -46,6 +47,8 @@
     "sass-loader": "^9.0.3",
     "style-loader": "^1.2.1",
     "stylelint": "^13.6.1",
+    "stylelint-order": "^4.1.0",
+    "stylelint-scss": "^3.18.0",
     "webpack": "^4.44.1",
     "webpack-cli": "^3.3.12",
     "webpack-dev-server": "^3.11.0"

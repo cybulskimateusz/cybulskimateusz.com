@@ -16,12 +16,12 @@ export default class Header extends Element {
 
   toLeft () {
     new TimelineMax()
-      .to(this.element, { marginLeft: '1.5rem' })
+      .to(this.element, { marginLeft: '1rem' })
   }
 
   toCenter () {
     new TimelineMax()
-      .to(this.element, { x: 0 })
+      .to(this.element, { marginLeft: '49%' })
   }
 
   _goHome () {

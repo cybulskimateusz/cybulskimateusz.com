@@ -1,44 +1,90 @@
-import Page from 'abstracts/Page'
+import Background from 'components/Background'
+import Header from 'components/Header'
+import RootPage from 'containers/RootPage'
+import NavBar from 'containers/NavBar'
+import LogoSpinner from 'components/LogoSpinner'
+import About from 'containers/About'
+import Contact from 'containers/Contact'
+import Work from 'containers/Work'
 import Router from 'components/Router'
-import Link from 'components/Link'
+import Project from 'containers/Project'
+import NotFoundPage from 'containers/NotFoundPage'
+import graphHelper from 'utils/graphHelper'
+import 'style.scss'
 
-class One extends Page {
-  constructor () {
-    super('div', 'Root', document.body)
-  }
-
-  show () {
-    this.element.innerHTML = 'One'
-    const linkTonfp = new Link('/404', 'toNFP', this.element)
-    super._setChildren([linkTonfp])
-    super.show()
-  }
-
-  setup () {
-    console.log('one')
-    super._setup()
-  }
-}
-
-class Two extends Page {
-  constructor () {
-    super('div', 'Page not found', document.body)
-  }
-
-  show () {
-    this.element.innerHTML = 'Two'
-    const linkTonfp = new Link('/', 'toRoot', this.element)
-    super._setChildren([linkTonfp])
-    super.show()
-  }
-}
-
-const one = new One()
-const two = new Two()
-
-const router = new Router({
-  '/': { component: one },
-  '/404': { component: two, sideEffect: () => console.log('buu') }
+const bg = new Background({
+  amountX: 50,
+  amountY: 50,
+  spaceBetween: 100,
+  clearColor: 0x696969,
+  hoverColor: 0xffffff,
+  tempo: 0.1,
+  amplitude: 10
 })
+bg.show()
 
-router.listen()
+const logoSpinner = new LogoSpinner()
+logoSpinner.show()
+
+const header = new Header()
+header.show()
+
+const navbar = new NavBar()
+navbar.show()
+
+const root = new RootPage()
+const nfp = new NotFoundPage()
+const about = new About()
+const contact = new Contact()
+const work = new Work()
+
+const onSubpage = () => {
+  logoSpinner.toCorner()
+  header.toLeft()
+}
+
+const onRoot = () => {
+  logoSpinner.toBottom()
+  header.toCenter()
+}
+
+const fetchProjects = async () => {
+  const query = `
+    query {
+      projects {
+        header
+        image {
+          url
+        }
+        subpage
+        stack
+        github
+        url
+      }
+    }
+  `
+  const { data } = await graphHelper(query)
+  return data.projects
+}
+
+const enableRouting = async () => {
+  const routes = {
+    '/': { component: root, sideEffect: onRoot },
+    '/404': { component: nfp, sideEffect: onSubpage },
+    '/about': { component: about, sideEffect: onSubpage },
+    '/work': { component: work, sideEffect: onSubpage },
+    '/contact': { component: contact, sideEffect: onSubpage }
+  }
+
+  const projects = await fetchProjects()
+
+  await projects.forEach(({ header, image, subpage, stack, github, url }) => {
+    routes[`/work${subpage}`] =
+    { component: new Project(header, image, stack, github, url), sideEffect: onSubpage }
+  })
+
+  const router = new Router(routes)
+  router.listen()
+}
+
+enableRouting()

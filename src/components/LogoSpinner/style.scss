@@ -12,11 +12,17 @@
   &--corner {
     right: -6%;
     top: -7%;
+    @media (max-width:425px) {
+      right: -20%;
+    }
   }
 
   &--bottom {
     bottom: 5%;
     left: 45%;
+    @media (max-width:425px) {
+      bottom: 20%;
+    }
   }
 
   &__tagline {
