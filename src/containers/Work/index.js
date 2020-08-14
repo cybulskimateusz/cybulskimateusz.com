@@ -88,14 +88,14 @@ export default class Work extends Page {
   }
 
   async _next () {
-    if (this.scrollPosition > -(this.maxScrollX)) {
+    if (this.scrollPosition > -(this.maxScrollX + await this._getChildWidth())) {
       this.scrollPosition -= await this._getChildWidth()
       new TimelineMax().to(this.element, { x: this.scrollPosition })
     }
   }
 
   async _previous () {
-    if (this.scrollPosition < 0) {
+    if (this.scrollPosition < -await this._getChildWidth()) {
       this.scrollPosition += await this._getChildWidth()
       new TimelineMax().to(this.element, { x: this.scrollPosition })
     }
