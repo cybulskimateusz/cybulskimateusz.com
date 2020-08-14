@@ -1,7 +1,7 @@
 import Page from 'abstracts/Page'
 import graphHelper from 'utils/graphHelper'
 import './style.scss'
-import { TimelineMax } from 'gsap/gsap-core'
+import { TimelineMax } from 'gsap'
 
 export default class Contact extends Page {
   constructor () {

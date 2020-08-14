@@ -23,7 +23,7 @@
   "homepage": "https://github.com/cybulskimateusz/cybulskimateusz.com#readme",
   "dependencies": {
     "auto-bind": "^4.0.0",
-    "gsap": "^3.4.2",
+    "gsap": "^3.5.0",
     "lodash": "^4.17.19",
     "pug": "^3.0.0",
     "three": "^0.119.1"

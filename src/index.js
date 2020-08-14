@@ -1,3 +1,5 @@
+import { gsap, CSSPlugin } from 'gsap/all'
+
 import Background from 'components/Background'
 import Header from 'components/Header'
 import RootPage from 'containers/RootPage'
@@ -11,6 +13,8 @@ import Project from 'containers/Project'
 import NotFoundPage from 'containers/NotFoundPage'
 import graphHelper from 'utils/graphHelper'
 import 'style.scss'
+
+gsap.registerPlugin(CSSPlugin)
 
 const bg = new Background({
   amountX: 50,

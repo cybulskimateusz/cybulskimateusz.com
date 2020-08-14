@@ -1,6 +1,6 @@
 import * as THREE from 'three'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { TimelineMax } from 'gsap/gsap-core'
+import { TimelineMax } from 'gsap'
 import Canvas from 'abstracts/Canvas'
 import laptop from 'assets/laptop.gltf'
 import './style.scss'
