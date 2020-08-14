@@ -127,7 +127,9 @@ export default class Work extends Page {
     window.addEventListener('wheel', this._onWheel)
     window.addEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.addEventListener('touchstart', this._onTouchStart)
+    window.addEventListener('mousedown', this._onTouchStart)
     window.addEventListener('touchend', this._onTouchEnd)
+    window.addEventListener('mouseup', this._onTouchEnd)
   }
 
   _removeEventListeners () {
@@ -135,6 +137,8 @@ export default class Work extends Page {
     window.removeEventListener('wheel', this._onWheel)
     window.removeEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.removeEventListener('touchstart', this._onTouchStart)
+    window.removeEventListener('mousedown', this._onTouchStart)
     window.removeEventListener('touchend', this._onTouchEnd)
+    window.removeEventListener('mouseup', this._onTouchEnd)
   }
 }

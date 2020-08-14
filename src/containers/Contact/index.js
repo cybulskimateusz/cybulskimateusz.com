@@ -61,7 +61,7 @@ export default class Contact extends Page {
         return element
       }
       case 'github': {
-        link.href = `tel:${contact.contact}`
+        link.href = `${contact.contact}`
         element.innerHTML = '<i class="fab fa-github icon icon_github"></i>:'
         link.innerHTML = 'github'
         element.appendChild(link)
