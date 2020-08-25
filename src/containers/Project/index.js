@@ -8,7 +8,6 @@ export default class Project extends Page {
 
     this.link = url
     this.header = header
-    this.image = image
     this.stack = stack
     this.github = github
   }
@@ -19,7 +18,6 @@ export default class Project extends Page {
     this._createHeader()
     this._createStackList()
     this._createLinkBar()
-    this._createImage()
   }
 
   async show () {
@@ -85,12 +83,5 @@ export default class Project extends Page {
     link.setAttribute('href', this.github)
     link.innerHTML = 'Github'
     return link
-  }
-
-  _createImage () {
-    const image = document.createElement('img')
-    image.classList.add('project_image')
-    image.setAttribute('src', this.image.url)
-    this.element.appendChild(image)
   }
 }
