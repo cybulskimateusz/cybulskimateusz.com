@@ -1,14 +1,18 @@
 import Page from 'abstracts/Page'
 import graphHelper from 'utils/graphHelper'
 import './style.scss'
-import { TimelineMax } from 'gsap'
+import { TimelineMax, Expo } from 'gsap'
 import WorkItem from 'components/WorkItem'
 import Dom from 'utils/Dom'
+import { debounce } from 'lodash'
 
 export default class Work extends Page {
   constructor () {
-    super('ol', 'Work', document.querySelector('#app'))
-    this.scrollPosition = -1
+    super('section', 'Work', document.querySelector('#app'))
+
+    this.projectInViewport = 0
+    this.scrollPosition = 0
+    this._debounceOnWheel = debounce(this._onWheel, 200)
   }
 
   _setup () {
@@ -33,24 +37,25 @@ export default class Work extends Page {
   }
 
   _displayData () {
+    const list = document.createElement('ol')
+    list.classList.add('work__list')
     this.projects.forEach(({ image, header, subpage }) => {
-      const workItem = new WorkItem(this.element, image.url, header, subpage)
+      const workItem = new WorkItem(list, image.url, header, subpage)
       workItem.show()
     })
+    this.element.appendChild(list)
   }
 
   async show () {
     await this._fetchProjects()
     this._displayData()
     const tl = new TimelineMax()
-    tl.to(this.element, 0.1, { opacity: 1 })
-    tl.to(this.element, 0.1, { opacity: 0 })
-    tl.to(this.element, 0.1, { opacity: 1 })
-    tl.to(this.element, 0.1, { opacity: 0 })
-    tl.to(this.element, 0.1, { opacity: 1 })
+    tl
+      .from(this.element, { x: -5000 })
+      .to(this.element, 1, { x: 0 }, Expo.easeIn)
     super.show(tl)
 
-    this._setWidth()
+    this._setChildrenLegth()
   }
 
   async hide () {
@@ -59,12 +64,11 @@ export default class Work extends Page {
     tl.to(this.element, 0.1, { opacity: 1 })
     tl.to(this.element, 0.1, { opacity: 0 })
     tl.to(this.element, 0.1, { opacity: 1 })
-    tl.to(this.element, 0.1, { opacity: 0 })
     await super.hide(tl)
   }
 
-  async _setWidth () {
-    this.maxScrollX = (this.element.childNodes.length * await this._getChildWidth()) / 2
+  async _setChildrenLegth () {
+    this.childrenLength = this.element.querySelectorAll('.work_item').length
   }
 
   async _getChildWidth () {
@@ -73,42 +77,30 @@ export default class Work extends Page {
     return node.offsetWidth + parseFloat(marginLeft) + parseFloat(marginRight)
   }
 
-  _scrollLeft () {
-    if (this.scrollPosition < 0) {
-      this.scrollPosition += 50
-      this.element.style.transform = `translateX(${this.scrollPosition}px)`
-    }
-  }
-
-  _scrollRight () {
-    if (this.scrollPosition > -(this.maxScrollX)) {
-      this.scrollPosition -= 50
-      this.element.style.transform = `translateX(${this.scrollPosition}px)`
-    }
-  }
-
   async _next () {
-    if (this.scrollPosition > -(this.maxScrollX + await this._getChildWidth())) {
+    if (this.projectInViewport < this.childrenLength - 1) {
       this.scrollPosition -= await this._getChildWidth()
       new TimelineMax().to(this.element, { x: this.scrollPosition })
+      this.projectInViewport += 1
     }
   }
 
   async _previous () {
-    if (this.scrollPosition < -await this._getChildWidth()) {
+    if (this.projectInViewport > 0) {
       this.scrollPosition += await this._getChildWidth()
       new TimelineMax().to(this.element, { x: this.scrollPosition })
+      this.projectInViewport -= 1
     }
   }
 
   _onWheel ({ deltaY }) {
-    if (deltaY > 0) this._scrollRight()
-    else if (deltaY < 0) this._scrollLeft()
+    if (deltaY > 0) this._next()
+    else if (deltaY < 0) this._previous()
   }
 
   _onDomMouseScroll (e) {
-    if (e.originalEvent.detail > 0) this._scrollRight()
-    else if (e.originalEvent.detail < 0) this._scrollLeft()
+    if (e.originalEvent.detail > 200) this._next()
+    else if (e.originalEvent.detail < -200) this._previous()
   }
 
   _onTouchStart (e) {
@@ -123,8 +115,7 @@ export default class Work extends Page {
   }
 
   _addEventListeners () {
-    window.addEventListener('resize', this._setWidth)
-    window.addEventListener('wheel', this._onWheel)
+    window.addEventListener('wheel', this._debounceOnWheel)
     window.addEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.addEventListener('touchstart', this._onTouchStart)
     window.addEventListener('mousedown', this._onTouchStart)
@@ -133,8 +124,7 @@ export default class Work extends Page {
   }
 
   _removeEventListeners () {
-    window.removeEventListener('resize', this._setWidth)
-    window.removeEventListener('wheel', this._onWheel)
+    window.removeEventListener('wheel', this._debounceOnWheel)
     window.removeEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.removeEventListener('touchstart', this._onTouchStart)
     window.removeEventListener('mousedown', this._onTouchStart)

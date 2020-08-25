@@ -28,7 +28,6 @@ const bg = new Background({
 bg.show()
 
 const logoSpinner = new LogoSpinner()
-logoSpinner.show()
 
 const header = new Header()
 header.show()
@@ -42,14 +41,30 @@ const about = new About()
 const contact = new Contact()
 const work = new Work()
 
-const onSubpage = () => {
-  logoSpinner.toCorner()
-  header.toLeft()
+let currentPath
+
+const onSubpage = async () => {
+  if (currentPath === '/' || currentPath === undefined) {
+    header.toLeft()
+    try {
+      await logoSpinner.hide()
+    } catch (err) { } finally {
+      logoSpinner.toCorner()
+      logoSpinner.show()
+    }
+  }
+  currentPath = window.location.pathname
 }
 
-const onRoot = () => {
-  logoSpinner.toBottom()
+const onRoot = async () => {
   header.toCenter()
+  try {
+    await logoSpinner.hide()
+  } catch (err) { } finally {
+    logoSpinner.toBottom()
+    logoSpinner.show()
+  }
+  currentPath = window.location.pathname
 }
 
 const fetchProjects = async () => {

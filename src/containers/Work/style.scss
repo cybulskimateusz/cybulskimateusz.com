@@ -1,33 +1,33 @@
 .work {
-  align-content: space-around;
-  box-sizing: border-box;
-  color: white;
   display: flex;
-  flex-direction: row;
-  float: left;
-  font-weight: 300;
-  height: 90vh;
-  list-style-type: none;
-  opacity: 0;
+  height: 100vh;
   overflow: visible;
-  padding: 2rem;
-  position: absolute;
-  text-align: center;
   width: 100vw;
+
+  &__list {
+    align-content: space-around;
+    box-sizing: border-box;
+    color: white;
+    display: inline-flex;
+    flex-direction: row;
+    float: left;
+    font-weight: 300;
+    height: 90vh;
+    list-style-type: none;
+    // width: 100vw;
+    margin: auto 20vw;
+    //opacity: 0;
+    overflow: visible;
+    padding: 2rem;
+    position: relative;
+    text-align: center;
+  }
 
   &_item {
     cursor: pointer;
-    display: inline-table;
+    //display: inline-table;
     margin-right: 10vw;
     width: 50vw;
-
-    &:first-child {
-      margin-left:20vw;
-    }
-
-    &:last-child {
-      margin-right:20vw;
-    }
   }
   &__img {
     width: 100%
@@ -43,7 +43,11 @@
 
   @media (max-width:425px) {
     margin: 20% 0;
-    padding: 2rem 1rem;
+
+    &__list {
+      margin: auto 0;
+      padding: 2rem 1rem;
+    }
 
     &__header {
       font-size: .8rem;
@@ -51,12 +55,8 @@
 
     &_item {
       float: left;
-      margin-right: 5vw;
-      width: 90vw;
-  
-      &:first-child {
-        margin-left:0;
-      }
+      margin: 0 4vw;
+      width: 80vw;
     }
   }
 }

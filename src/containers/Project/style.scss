@@ -2,14 +2,8 @@
   color: rgba(255,255,255,1);
   position: absolute;
 
-  &_header, &_image, &_stack, &_linkbar {
+  &_header, &_stack, &_linkbar {
     position: absolute;
-  }
-
-  &_image {
-    margin: 20vh 25vw;
-    opacity: .7;
-    width: 50vw;
   }
 
   &_header {
@@ -21,7 +15,7 @@
   }
 
   &_stack {
-    display: flex;
+    display: block;
     font-size: 1.5rem;
     font-weight: 300;
     margin-top: 30vh;
@@ -51,14 +45,11 @@
   }
 
   @media (max-width:425px) {
-    &_image {
-      margin: 20vh 5vw;
-      width: 90vw;
-    }
-
     &_stack {
+      display: block;
       font-size: 1.1rem;
       padding: 0 10vw;
+      text-align: center;
       width: 80vw;
     }
 
