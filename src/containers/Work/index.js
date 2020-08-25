@@ -52,7 +52,7 @@ export default class Work extends Page {
     const tl = new TimelineMax()
     tl
       .from(this.element, { x: -5000 })
-      .to(this.element, 1, { x: 0 }, Expo.easeIn)
+      .to(this.element, 1, { x: this.scrollPosition }, Expo.easeIn)
     super.show(tl)
 
     this._setChildrenLegth()
