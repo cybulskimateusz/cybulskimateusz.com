@@ -41,9 +41,7 @@
     text-align: left;
   }
 
-  @media (max-width:425px) {
-    margin: 20% 0;
-
+  @media (max-width:768px) {
     &__list {
       margin: auto 0;
       padding: 2rem 1rem;
@@ -55,7 +53,7 @@
 
     &_item {
       float: left;
-      margin: 0 4vw;
+      margin: auto 7vw auto 0;
       width: 80vw;
     }
   }

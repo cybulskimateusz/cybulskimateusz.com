@@ -111,7 +111,11 @@ export default class Work extends Page {
     const touchDimensions = Dom.getPointerPosition(document.body, e).px
 
     if (this.touchDimensions.x < touchDimensions.x) this._previous()
-    if (this.touchDimensions.x > touchDimensions.x) this._next()
+    else if (this.touchDimensions.x > touchDimensions.x) this._next()
+    else if (e.changedTouches) {
+      if (e.changedTouches[0].clientX < 0) this._next()
+      else if (e.changedTouches[0].clientX > 0) this._previous()
+    }
   }
 
   _addEventListeners () {
