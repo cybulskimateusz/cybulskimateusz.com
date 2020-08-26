@@ -50,7 +50,7 @@ export default class AboutBackground extends Canvas {
         if (object) {
           object.material = new THREE.MeshNormalMaterial()
           object.scale.set(1.4, 1.4, 1.4)
-          object.position.y = 30
+          object.position.y = 25
         }
       })
       gltf.scene.position.set(0, 0, 0)
@@ -70,9 +70,7 @@ export default class AboutBackground extends Canvas {
 
   _rotateLaptop () {
     if (this.scene.children[1]) {
-      this.scene.children[1].rotation.x -= 0.05
-      this.scene.children[1].rotation.y -= 0.05
-      this.scene.children[1].rotation.z -= 0.05
+      this.scene.children[1].rotation.y -= 0.01
     }
   }
 

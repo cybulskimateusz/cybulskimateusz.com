@@ -13,6 +13,7 @@ export default class Work extends Page {
     this.projectInViewport = 0
     this.scrollPosition = 0
     this._debounceOnWheel = debounce(this._onWheel, 200)
+    this._debounceTouchMove = debounce(this._onTouchMove, 200)
   }
 
   _setup () {
@@ -80,7 +81,7 @@ export default class Work extends Page {
   async _next () {
     if (this.projectInViewport < this.childrenLength - 1) {
       this.scrollPosition -= await this._getChildWidth()
-      new TimelineMax().to(this.element, { x: this.scrollPosition })
+      new TimelineMax().to(this.element.querySelector('.work__list'), { x: this.scrollPosition })
       this.projectInViewport += 1
     }
   }
@@ -88,7 +89,7 @@ export default class Work extends Page {
   async _previous () {
     if (this.projectInViewport > 0) {
       this.scrollPosition += await this._getChildWidth()
-      new TimelineMax().to(this.element, { x: this.scrollPosition })
+      new TimelineMax().to(this.element.querySelector('.work__list'), { x: this.scrollPosition })
       this.projectInViewport -= 1
     }
   }
@@ -107,19 +108,27 @@ export default class Work extends Page {
     this.touchDimensions = Dom.getPointerPosition(document.body, e).px
   }
 
+  _onTouchMove (e) {
+    if (e.changedTouches[0].clientX < 0) this.direction = 'right'
+    else if (e.changedTouches[0].clientX > 0) this.direction = 'left'
+  }
+
   _onTouchEnd (e) {
     const touchDimensions = Dom.getPointerPosition(document.body, e).px
 
-    if (this.touchDimensions.x < touchDimensions.x) this._previous()
-    else if (this.touchDimensions.x > touchDimensions.x) this._next()
-    else if (e.changedTouches) {
-      if (e.changedTouches[0].clientX < 0) this._next()
-      else if (e.changedTouches[0].clientX > 0) this._previous()
-    }
+    if (this.touchDimensions.x < touchDimensions.x) this.direction = 'left'
+    else if (this.touchDimensions.x > touchDimensions.x) this.direction = 'right'
+    this._handleNewDirection()
+  }
+
+  _handleNewDirection () {
+    if (this.direction === 'left') this._previous()
+    if (this.direction === 'right') this._next()
   }
 
   _addEventListeners () {
     window.addEventListener('wheel', this._debounceOnWheel)
+    window.addEventListener('touchmove', this._onTouchMove)
     window.addEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.addEventListener('touchstart', this._onTouchStart)
     window.addEventListener('mousedown', this._onTouchStart)
@@ -129,6 +138,7 @@ export default class Work extends Page {
 
   _removeEventListeners () {
     window.removeEventListener('wheel', this._debounceOnWheel)
+    window.removeEventListener('touchmove', this._debounceTouchMove)
     window.removeEventListener('DOMMouseScroll', this._onDomMouseScroll)
     window.removeEventListener('touchstart', this._onTouchStart)
     window.removeEventListener('mousedown', this._onTouchStart)
