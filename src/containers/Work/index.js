@@ -12,8 +12,9 @@ export default class Work extends Page {
 
     this.projectInViewport = 0
     this.scrollPosition = 0
+
     this._debounceOnWheel = debounce(this._onWheel, 200)
-    this._debounceTouchMove = debounce(this._onTouchMove, 200)
+    this._debounceDomMouseScroll = debounce(this._onDomMouseScroll, 200)
   }
 
   _setup () {
@@ -100,8 +101,8 @@ export default class Work extends Page {
   }
 
   _onDomMouseScroll (e) {
-    if (e.originalEvent.detail > 200) this._next()
-    else if (e.originalEvent.detail < -200) this._previous()
+    if (e.originalEvent.detail > 0) this._next()
+    else if (e.originalEvent.detail < 0) this._previous()
   }
 
   _onTouchStart (e) {
@@ -129,7 +130,7 @@ export default class Work extends Page {
   _addEventListeners () {
     window.addEventListener('wheel', this._debounceOnWheel)
     window.addEventListener('touchmove', this._onTouchMove)
-    window.addEventListener('DOMMouseScroll', this._onDomMouseScroll)
+    window.addEventListener('DOMMouseScroll', this._debounceDomMouseScroll)
     window.addEventListener('touchstart', this._onTouchStart)
     window.addEventListener('mousedown', this._onTouchStart)
     window.addEventListener('touchend', this._onTouchEnd)
@@ -138,8 +139,8 @@ export default class Work extends Page {
 
   _removeEventListeners () {
     window.removeEventListener('wheel', this._debounceOnWheel)
-    window.removeEventListener('touchmove', this._debounceTouchMove)
-    window.removeEventListener('DOMMouseScroll', this._onDomMouseScroll)
+    window.removeEventListener('touchmove', this._onTouchMove)
+    window.removeEventListener('DOMMouseScroll', this._debounceDomMouseScroll)
     window.removeEventListener('touchstart', this._onTouchStart)
     window.removeEventListener('mousedown', this._onTouchStart)
     window.removeEventListener('touchend', this._onTouchEnd)
