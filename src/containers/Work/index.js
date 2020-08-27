@@ -3,7 +3,6 @@ import graphHelper from 'utils/graphHelper'
 import './style.scss'
 import { TimelineMax, Expo } from 'gsap'
 import WorkItem from 'components/WorkItem'
-import Dom from 'utils/Dom'
 import { debounce } from 'lodash'
 
 export default class Work extends Page {
@@ -12,6 +11,7 @@ export default class Work extends Page {
 
     this.projectInViewport = 0
     this.scrollPosition = 0
+    this.x = { start: 0, end: 0 }
 
     this._debounceOnWheel = debounce(this._onWheel, 200)
     this._debounceDomMouseScroll = debounce(this._onDomMouseScroll, 200)
@@ -105,26 +105,21 @@ export default class Work extends Page {
     else if (e.originalEvent.detail < 0) this._previous()
   }
 
-  _onTouchStart (e) {
-    this.touchDimensions = Dom.getPointerPosition(document.body, e).px
+  _onTouchStart (event) {
+    this.isDown = true
+
+    this.x.start = event.touches ? event.touches[0].clientX : event.clientX
   }
 
-  _onTouchMove (e) {
-    if (e.changedTouches[0].clientX < 0) this.direction = 'right'
-    else if (e.changedTouches[0].clientX > 0) this.direction = 'left'
+  _onTouchMove (event) {
+    if (!this.isDown) return
+
+    this.x.end = event.touches ? event.touches[0].clientX : event.clientX
   }
 
-  _onTouchEnd (e) {
-    const touchDimensions = Dom.getPointerPosition(document.body, e).px
-
-    if (this.touchDimensions.x < touchDimensions.x) this.direction = 'left'
-    else if (this.touchDimensions.x > touchDimensions.x) this.direction = 'right'
-    this._handleNewDirection()
-  }
-
-  _handleNewDirection () {
-    if (this.direction === 'left') this._previous()
-    if (this.direction === 'right') this._next()
+  _onTouchEnd () {
+    if (this.x.start > this.x.end) this._next()
+    else if (this.x.start < this.x.end) this._previous()
   }
 
   _addEventListeners () {
