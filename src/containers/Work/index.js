@@ -122,7 +122,14 @@ export default class Work extends Page {
     else if (this.x.start < this.x.end) this._previous()
   }
 
+  async _onResize () {
+    this.scrollPosition = -1 * (await this._getChildWidth() * this.projectInViewport)
+    new TimelineMax().to(this.element.querySelector('.work__list'), { x: this.scrollPosition })
+    console.log(this.scrollPosition)
+  }
+
   _addEventListeners () {
+    window.addEventListener('resize', this._onResize)
     window.addEventListener('wheel', this._debounceOnWheel)
     window.addEventListener('touchmove', this._onTouchMove)
     window.addEventListener('DOMMouseScroll', this._debounceDomMouseScroll)
