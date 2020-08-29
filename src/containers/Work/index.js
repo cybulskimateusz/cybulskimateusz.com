@@ -54,7 +54,7 @@ export default class Work extends Page {
     const tl = new TimelineMax()
     tl
       .from(this.element, { x: -5000 })
-      .to(this.element, 1, { x: this.scrollPosition }, Expo.easeIn)
+      .to(this.element.querySelector('.work__list'), 1, { x: this.scrollPosition }, Expo.easeIn)
     super.show(tl)
 
     this._setChildrenLegth()
@@ -106,26 +106,28 @@ export default class Work extends Page {
   }
 
   _onTouchStart (event) {
-    this.isDown = true
-
     this.x.start = event.touches ? event.touches[0].clientX : event.clientX
   }
 
   _onTouchMove (event) {
-    if (!this.isDown) return
+    this.isMooved = true
 
     this.x.end = event.touches ? event.touches[0].clientX : event.clientX
   }
 
   _onTouchEnd () {
-    if (this.x.start > this.x.end) this._next()
-    else if (this.x.start < this.x.end) this._previous()
+    if (this.isMooved) {
+      if (this.x.start > this.x.end) this._next()
+      else if (this.x.start < this.x.end) this._previous()
+    }
+
+    this.x = { start: 0, end: 0 }
+    this.isMooved = false
   }
 
   async _onResize () {
     this.scrollPosition = -1 * (await this._getChildWidth() * this.projectInViewport)
     new TimelineMax().to(this.element.querySelector('.work__list'), { x: this.scrollPosition })
-    console.log(this.scrollPosition)
   }
 
   _addEventListeners () {
@@ -140,6 +142,7 @@ export default class Work extends Page {
   }
 
   _removeEventListeners () {
+    window.removeEventListener('resize', this._onResize)
     window.removeEventListener('wheel', this._debounceOnWheel)
     window.removeEventListener('touchmove', this._onTouchMove)
     window.removeEventListener('DOMMouseScroll', this._debounceDomMouseScroll)
